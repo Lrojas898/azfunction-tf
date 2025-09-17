@@ -1,3 +1,127 @@
+
+# Proceso de Deployment de Azure Function con Terraform - Luis Rojas
+
+## Introducción
+
+Este README explica el proceso paso a paso para configurar y desplegar una Azure Function utilizando Terraform en la suscripción de Luis Rojas. El proceso se basa en la actividad realizada en clase de Ingeniería de Software V en la Universidad ICESI. Se incluyen los comandos principales y descripciones de cada etapa, enfocándonos exclusivamente en la suscripción de Luis Rojas.
+
+Se asume que se tiene instalado Azure CLI y Terraform en el entorno local. La función se despliega como una Azure Function App con un trigger HTTP.
+
+## Requisitos Previos
+
+- Cuenta de Azure con suscripción activa (en este caso, "Pay-As-You-Go").
+- Azure CLI instalado y configurado.
+- Terraform instalado.
+- Archivos de configuración de Terraform (.tf) preparados para definir recursos como el resource group, storage account, function app, etc.
+
+## Pasos del Proceso
+
+### 1. Configuración de la Suscripción y Terraform Plan
+
+En esta etapa, se inicia sesión en Azure, se selecciona la suscripción y se inicializa Terraform para planificar los cambios.
+
+Comandos ejecutados:
+
+```bash
+az login
+# (Se abre el navegador para autenticación)
+
+az account set --subscription "Pay-As-You-Go"
+# (Selecciona la suscripción específica)
+
+terraform init
+# (Inicializa el directorio de Terraform, descarga providers y módulos)
+
+terraform plan
+# (Genera un plan de ejecución mostrando los recursos que se crearán/modificarán)
+```
+
+El output del `terraform plan` muestra un resumen de los recursos a crear, como el resource group, storage account y la function app.
+
+### 2. Terraform Plan con Nombre de la Función
+
+Se ejecuta un plan específico pasando el nombre de la función como variable para personalizar el deployment.
+
+Comando ejecutado:
+
+```bash
+terraform plan -var "app_name=terraform-function-app-lrojas"
+```
+
+El output detalla los recursos que se añadirán, como:
+- azurerm_resource_group
+- azurerm_storage_account
+- azurerm_application_insights
+- azurerm_function_app
+- Entre otros (aproximadamente 8 recursos nuevos).
+
+No se aplican cambios aún; solo se visualiza el plan.
+
+### 3. Confirmación de Apply
+
+Se confirma y aplica el deployment. Terraform pregunta por confirmación antes de proceder.
+
+Comando ejecutado:
+
+```bash
+terraform apply -var "app_name=terraform-function-app-lrojas"
+```
+
+Durante la ejecución:
+- Se muestra el plan nuevamente.
+- Pregunta: "¿Do you want to perform these actions?" (Se responde con "yes").
+
+Terraform comienza a crear los recursos en Azure.
+
+### 4. Culminación Satisfactoria Apply
+
+El apply se completa exitosamente. Terraform crea todos los recursos definidos.
+
+Output típico:
+- Recursos creados (ej.: 8 added, 0 changed, 0 destroyed).
+- Mensaje: "Apply complete!"
+
+En este punto, la Azure Function está desplegada y lista en el portal de Azure.
+
+### 5. Prueba en HTTP
+
+Se prueba la función desplegada accediendo a su endpoint HTTP.
+
+Comando o acción ejecutada:
+
+```bash
+curl "https://terraform-function-app-lrojas.azurewebsites.net/api/HttpTrigger1?name=Luis"
+# (Respuesta esperada: "Hello, Luis" o similar, dependiendo de la implementación de la función)
+```
+
+Alternativamente, se puede probar en un navegador visitando la URL con el parámetro `name`. Esto verifica que la función responde correctamente a solicitudes HTTP.
+
+## Notas Adicionales
+
+- **Variables de Terraform**: Se utiliza `-var "app_name=..."` para personalizar nombres y evitar conflictos.
+- **Limpieza**: Para destruir los recursos, usa `terraform destroy -var "app_name=terraform-function-app-lrojas"`.
+- **Errores Comunes**: Asegúrate de que la suscripción tenga permisos suficientes y que no haya conflictos de nombres en Azure.
+- **Referencias**: Consulta la documentación oficial de [Terraform para Azure Functions](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app) para más detalles sobre los recursos.
+
+Este proceso demuestra el uso de Infrastructure as Code (IaC) con Terraform para automatizar deployments en Azure. Si necesitas ajustes o más detalles, revisa los archivos .tf originales.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### **Infraestructura como código**
 
 - **Utilizar archivos de definición**: Todas las herramientas de infraestructura como código tienen un formato propio para definir la infraestructura.
