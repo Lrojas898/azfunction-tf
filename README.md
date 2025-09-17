@@ -1,11 +1,6 @@
 
-# Proceso de Deployment de Azure Function con Terraform - Luis Rojas
+# Proceso de Deployment de Azure Function con Terraform - OSCAR GOMEZ y LUIS ROJAS
 
-## Introducción
-
-Este README explica el proceso paso a paso para configurar y desplegar una Azure Function utilizando Terraform en la suscripción de Luis Rojas. El proceso se basa en la actividad realizada en clase de Ingeniería de Software V en la Universidad ICESI. Se incluyen los comandos principales y descripciones de cada etapa, enfocándonos exclusivamente en la suscripción de Luis Rojas.
-
-Se asume que se tiene instalado Azure CLI y Terraform en el entorno local. La función se despliega como una Azure Function App con un trigger HTTP.
 
 ## Requisitos Previos
 
