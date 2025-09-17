@@ -90,7 +90,7 @@ Se prueba la función desplegada accediendo a su endpoint HTTP.
 Comando o acción ejecutada:
 
 ```bash
-curl "https://terraform-function-app-lrojas.azurewebsites.net/api/HttpTrigger1?name=Luis"
+curl "[https://terraform-function-app-lrojas.azurewebsites.net/api/HttpTrigger1?name=Luis](https://lrojasfirstfunction.azurewebsites.net/api/lrojasfirstfunction)"
 # (Respuesta esperada: "Hello, Luis" o similar, dependiendo de la implementación de la función)
 ```
 
